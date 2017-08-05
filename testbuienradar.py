@@ -21,5 +21,5 @@ for i in range(len(raindata)):
 ugfx.flush()
 
 badge.leds_init()
-badge.leds_send_data(bytes(([11, 51, 255, 0]*(raindata[0]//43))+([0,0,0,0]*(6-(raindata[0]//43))) ,24) # all blue
+badge.leds_send_data(bytes(([11, 51, 255, 0]*(raindata[0]//43))+([0,0,0,0]*(6-(raindata[0]//43)))) ,24) # all blue
 badge.leds_disable()
