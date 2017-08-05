@@ -12,6 +12,8 @@ sta_if.ifconfig()                                                # Print connect
 r = urequests.get('https://br-gpsgadget-new.azurewebsites.net/data/raintext/?lat=52.28&lon=5.52')
 lines = r.text.splitlines()
 
-ugfx.clear(ugfx.BLACK)                                           # Clear screen
-ugfx.string(120, 50, lines[0].split('|')[0], "Roboto_BlackItalic24", ugfx.WHITE) # Write a string to the center of the screen
-ugfx.flush()                                                     # Send the update to the screen
+# Plot graph
+ugfx.clear(ugfx.WHITE)
+for i in range(len(lines)):
+    ugfx.area(12*i,127-(int(lines[i].split('|')[0])//2), 11, 127, ugfx.BLACK)
+ugfx.flush()
