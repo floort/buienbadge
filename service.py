@@ -2,6 +2,7 @@ import urequests
 import ugfx
 import network
 import badge
+import time
 
 def setup():
   pass
@@ -27,6 +28,6 @@ def loop():
     badge.leds_send_data(bytes([0, 0, raindata[0]//2, 0]*6) ,24) # all blue with intensity of current rain
     badge.vibrator_init()
     badge.vibrator_activate(9)
-    sleep(2)
+    time.sleep(2)
     badge.leds_disable()
   return 15*60*1000
