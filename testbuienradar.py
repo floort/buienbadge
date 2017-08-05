@@ -1,6 +1,7 @@
 import urequests
 import ugfx
 import network
+import badge
 
 sta_if = network.WLAN(network.STA_IF); sta_if.active(True)       # Activate standalone interface
 sta_if.scan()                                                    # Scan for available access points
@@ -17,3 +18,7 @@ ugfx.clear(ugfx.WHITE)
 for i in range(len(lines)):
     ugfx.area(12*i,127-(int(lines[i].split('|')[0])//2), 11, 127, ugfx.BLACK)
 ugfx.flush()
+
+badge.leds_init()
+badge.leds_send_data( bytes([11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0]) ,24) # all blue
+badge.leds_disable()
