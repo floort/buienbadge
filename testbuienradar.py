@@ -14,12 +14,16 @@ r = urequests.get('https://br-gpsgadget-new.azurewebsites.net/data/raintext/?lat
 lines = r.text.splitlines()
 raindata = [int(lines[i].split('|')[0]) for i in range(len(lines))]
 
-# Plot graph
-ugfx.clear(ugfx.WHITE)
-for i in range(len(raindata)):
-    ugfx.area(12*i,127-(raindata[i]//2), 11, 127, ugfx.BLACK)
-ugfx.flush()
-
-badge.leds_init()
-badge.leds_send_data(bytes([0, 0, raindata[0]//2, 0]*6) ,24) # all blue with intensity of current rain
-badge.leds_disable()
+if sum(raindata) > 0:
+    # Plot graph
+    ugfx.clear(ugfx.WHITE)
+    for i in range(len(raindata)):
+        ugfx.area(12*i,127-(raindata[i]//2), 11, 127, ugfx.BLACK)
+    ugfx.flush()
+    
+    badge.leds_init()
+    badge.leds_send_data(bytes([0, 0, raindata[0]//2, 0]*6) ,24) # all blue with intensity of current rain
+    badge.vibrator_init()
+    badge.vibrator_activate(9)
+    sleep(2)
+    badge.leds_disable()
