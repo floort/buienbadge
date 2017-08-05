@@ -22,3 +22,5 @@ ugfx.flush()
 badge.leds_init()
 badge.leds_send_data( bytes([11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0]) ,24) # all blue
 badge.leds_disable()
+
+badge.vibrator_activate(9)
