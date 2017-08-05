@@ -12,15 +12,14 @@ sta_if.ifconfig()                                                # Print connect
 
 r = urequests.get('https://br-gpsgadget-new.azurewebsites.net/data/raintext/?lat=52.28&lon=5.52')
 lines = r.text.splitlines()
+raindata = [int(lines[i].split('|')[0]) for i in range(len(lines))]
 
 # Plot graph
 ugfx.clear(ugfx.WHITE)
-for i in range(len(lines)):
-    ugfx.area(12*i,127-(int(lines[i].split('|')[0])//2), 11, 127, ugfx.BLACK)
+for i in range(len(raindata)):
+    ugfx.area(12*i,127-(raindata[i]//2), 11, 127, ugfx.BLACK)
 ugfx.flush()
 
 badge.leds_init()
-badge.leds_send_data( bytes([11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0, 11, 51, 255, 0]) ,24) # all blue
+badge.leds_send_data(bytes(([11, 51, 255, 0]*(raindata[0]//43))+([0,0,0,0]*(6-(raindata[0]//43))) ,24) # all blue
 badge.leds_disable()
-
-badge.vibrator_activate(9)
